@@ -27,7 +27,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 #CSS styles
 gem 'bootstrap-sass', '~> 3.3.5.1'
-
+#easier form compatible with bootstrap
+gem 'simple_form', '~> 3.2.0'
 #Authantication system
 gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
