@@ -7,7 +7,6 @@ class StatusesController < ApplicationController
   def index
     @statuses = Status.all
   end
-
   # GET /statuses/1
   # GET /statuses/1.json
   def show
@@ -25,10 +24,11 @@ class StatusesController < ApplicationController
   # POST /statuses
   # POST /statuses.json
   def create
-    @status = Status.new(status_params)
+    @status = current_user.statuses.new(status_params)
 
     respond_to do |format|
-      if @status.save
+      if @status.user == current_user
+        @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
@@ -42,7 +42,8 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1.json
   def update
     respond_to do |format|
-      if @status.update(status_params)
+      if@status.user == current_user
+        @status.update(status_params)
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
@@ -55,10 +56,14 @@ class StatusesController < ApplicationController
   # DELETE /statuses/1
   # DELETE /statuses/1.json
   def destroy
-    @status.destroy
-    respond_to do |format|
+    if @status.user == current_user
+      @status.destroy
+      respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
       format.json { head :no_content }
+      end
+    else
+      redirect_to statuses_path
     end
   end
 
@@ -70,6 +75,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require(:status).permit(:name, :content)
+      params.require( :status ).permit( :user_id, :content )
     end
 end
