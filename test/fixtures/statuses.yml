@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: MyText
+  content: "MyText"
+  #i need to write the user of the Fixture so it know the who is writing the status
+  user: juan
 
 two:
-  content: MyText
+  content: "MyText"
+  #i need to write the user of the Fixture so it know the who is writing the status
+  user: juan
