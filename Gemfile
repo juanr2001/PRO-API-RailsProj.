@@ -32,15 +32,18 @@ gem 'simple_form', '~> 3.2.0'
 gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
-group :production do
+
     gem "pg"
-end
+    gem 'puma'
+    gem 'foreman'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'pry'
   # Use sqlite3 as the database for Active Record
     gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -50,3 +53,9 @@ group :development, :test do
   gem 'spring'
 end
 
+group :production do
+gem 'rack-cors', require: 'rack/cors'
+gem 'rails_12factor'
+end
+
+ruby '2.1.5'
