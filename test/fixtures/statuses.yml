@@ -9,3 +9,7 @@ two:
   content: "MyText"
   #i need to write the user of the Fixture so it know the who is writing the status
   user: juan
+
+three:
+    content: "I am testing other user"
+    user: Jose
