@@ -32,7 +32,9 @@ gem 'simple_form', '~> 3.2.0'
 gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
-
+gem :production do
+    gem "pg"
+end
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
