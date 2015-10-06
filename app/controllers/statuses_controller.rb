@@ -31,7 +31,7 @@ class StatusesController < ApplicationController
     respond_to do |format|
       if @status.user == current_user
         @status.save
-        format.html { redirect_to statuses_path, notice: 'Status was successfully created.' }
+        format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
         format.html { render :new }
@@ -43,10 +43,12 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1
   # PATCH/PUT /statuses/1.json
   def update
+    @status = current_user.statuses.find(params[ :id ])
+
     respond_to do |format|
-      if@status.user == current_user
+      if@status.user == current_user && params[:status]
         @status.update(status_params)
-        format.html { redirect_to statuses_path, notice: 'Status was successfully updated.' }
+        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
         format.html { render :edit }
