@@ -7,11 +7,17 @@ juan:
     # password: "password"
     # password_confirmation: "password"
 
-juan:
+jose:
     first_name: "Jose"
     last_name: "Marcos"
     email: "juan@yahoo.com"
     profile_name: "Josesito"
     # password: "password"
     # password_confirmation: "password"
+
+caramelo:
+    first_name: "Caramelo"
+    last_name: "Dulce"
+    email: "caramelo@yahoo.com"
+    profile_name: "Caramelito"
 
