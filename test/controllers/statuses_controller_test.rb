@@ -9,9 +9,10 @@ class StatusesControllerTest < ActionController::TestCase
 
 #INDEX
   test "should get index" do
+    sign_in users(:juan)
     get :index
     assert_response :success
-    assert_not_nil assigns(:statuses)
+    assert_not_nil assigns(:statuses, :gravatar_user)
   end
 
 #LOGGED IN-OUT
@@ -47,6 +48,18 @@ class StatusesControllerTest < ActionController::TestCase
     assert_redirected_to status_path(assigns(:status))
   end
 
+  test "should create status for the current user when logged in" do
+      sign_in users(:juan)
+      assert_difference('Status.count') do
+      #need to pass the other user
+      post :create, status: { content: @status.content, user_id: users( :jose ).id }
+    end
+
+    assert_redirected_to status_path(assigns(:status))
+    #status user id is the same as juan id from fixture
+    assert_equal assigns( :status ).user_id, users( :juan).id
+  end
+
 #SHOW
   test "should show status when logged in" do
     get :show, id: @status
@@ -54,7 +67,15 @@ class StatusesControllerTest < ActionController::TestCase
   end
 
 #EDIT
+
+test "should redirect edit when not logged in" do
+    get :edit, id: @status
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
   test "should get edit when logged in" do
+    sign_in users(:juan)
     get :edit, id: @status
     assert_response :success
   end
@@ -62,9 +83,23 @@ class StatusesControllerTest < ActionController::TestCase
 #UPDATE
   test "should update status when logged in" do
     sign_in users(:juan)
-    patch :update, id: @status, status: { content: @status.content }
+    put :update, id: @status, status: { content: @status.content }
     assert_redirected_to status_path(assigns(:status))
   end
+
+  test "should update status for current user when logged in" do
+    sign_in users(:juan)
+    patch :update, id: @status, status: { content: @status.content, user_id: users(:jose).id }
+    assert_redirected_to status_path(assigns(:status))
+    assert_equal assigns(:status).user_id, users(:juan).id
+  end
+
+ # test "should not update status if nothing has changed" do
+ #    sign_in users(:juan)
+ #    patch :update, id: @status
+ #    assert_redirected_to status_path(assigns(:status))
+ #    assert_equal assigns(:status).user_id, users(:juan).id
+ #  end
 
 #DESTROY
   test "should destroy status when logged in" do
