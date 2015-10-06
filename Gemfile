@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'sqlite3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 #CSS styles
@@ -33,19 +35,20 @@ gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-    gem "pg"
-    gem 'puma'
-    gem 'foreman'
+# gem "pg"
+# gem 'puma'
+# gem 'foreman'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+group :test do
+    gem 'shoulda', '~> 3.5.0'
+end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'pry'
   # Use sqlite3 as the database for Active Record
-    gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
