@@ -20,9 +20,9 @@ class CustomRoutesTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
 
-    #here I have to write it as lower case and in the browser Uppercase.
+
     test "that a profile page works" do
-        get "/juanchito"
+        get "/Juanchito"
         assert_response :success
     end
 end
