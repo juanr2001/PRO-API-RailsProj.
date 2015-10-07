@@ -2,9 +2,9 @@ require 'test_helper'
 
 class StatusTest < ActiveSupport::TestCase
   test "that a status requires content" do
-    status = User.new
+    status = Status.new
     #make sure is not save
-    status.content = nil?
+    status.content = ""
     assert !status.save, "Content must be more than 2 characters"
     #and give me an error message
     assert !status.errors[:content].empty?
