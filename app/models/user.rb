@@ -37,4 +37,9 @@ class User < ActiveRecord::Base
         hash = Digest::MD5.hexdigest(downcased_email)
         "http://www.gravatar.com/avatar/#{hash}"
     end
+    #automatically, rails thing..return the profile name.
+    def to_param
+        profile_name
+    end
+
 end
