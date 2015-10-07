@@ -35,6 +35,9 @@ gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
+gem 'state_machine', '~> 1.2.0'
+
 # gem "pg"
 # gem 'puma'
 # gem 'foreman'
