@@ -12,7 +12,8 @@ class StatusesControllerTest < ActionController::TestCase
     sign_in users(:juan)
     get :index
     assert_response :success
-    assert_not_nil assigns(:statuses, :gravatar_user)
+    assert_not_nil assigns(:statuses, :gravatar_url)
+    logger.info
   end
 
 #LOGGED IN-OUT
