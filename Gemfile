@@ -36,7 +36,7 @@ gem 'devise', '~> 3.5.2'
 # gem 'unicorn'
 
 # http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
-gem 'state_machine', '~> 1.2.0'
+gem 'state_machines'
 
 # gem "pg"
 # gem 'puma'
@@ -46,6 +46,7 @@ gem 'state_machine', '~> 1.2.0'
 # gem 'capistrano-rails', group: :development
 group :test do
     gem 'shoulda', '~> 3.5.0'
+    gem 'factory_girl', '~> 4.0'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
