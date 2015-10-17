@@ -19,7 +19,12 @@ Rails.application.routes.draw do
 
     end
 
-    resources :user_friendships
+    resources :user_friendships do
+      #since is an instance rather than applying to all users friendships
+      member do
+        put :accept
+      end
+    end
 
     resources :statuses
     # get 'feed', to: 'statuses#index', as: :feed
