@@ -1,14 +1,14 @@
 class UserFriendshipsController < ApplicationController
     before_action :authenticate_user!
-
+    respond_to :html, :json
     def index
         @user_friendships = current_user.user_friendships.all
     end
 
     def accept
         @user_friendship = current_user.user_friendships.find( params[ :id ] )
-        if @user_friendship.accept_mutual_friendship!
-            @user_friendship.friend.user_friendships.find_by(friend_id: current_user.id).accept_mutual_friendship!
+        if @user_friendship.accept!
+            # @user_friendship.friend.user_friendships.find_by(friend_id: current_user.id).accept_mutual_friendship!
             flash[ :notice ] = "You are now friends with #{@user_friendship.friend.first_name}"
         else
             flash[ :error ] = "That friendship could not be accepted."
@@ -43,12 +43,15 @@ class UserFriendshipsController < ApplicationController
         if params[:user_friendship ] && params[ :user_friendship ].has_key?( :friend_id )
             @friend = User.where( profile_name: params[:user_friendship][ :friend_id ] ).first
             @user_friendship = UserFriendship.request( current_user, @friend)
-            if @user_friendship.new_record?
-                flash[ :error ] = "There was poblem creating that friend request."
-            else
-                flash[:notice] = "Friend request sent."
+            respond_to do |format|
+                if @user_friendship.new_record?
+                    format.html { flash[:error] = "There was a problem."; redirect_to profile_path(@friend) }
+                    format.json { render json: @user_friendship.to_json, status: :precondition_failed }
+                else
+                    format.html { flash[:notice] = "Friend request sent."; redirect_to profile_path(@friend) }
+                    format.json { render json: @user_friendship.to_json }
+                end
             end
-            redirect_to profile_path(@friend)
         else
             flash[ :error ] = "Friend required"
             redirect_to root_path

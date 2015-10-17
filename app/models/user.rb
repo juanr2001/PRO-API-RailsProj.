@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 #Associations
     has_many :statuses
-    has_many :user_friendships
+    has_many :user_friendships, foreign_key: :user_id
     has_many :friends, -> { where(user_friendships: { state: 'accepted'})}, through: :user_friendships, source: :friend
 
 
@@ -65,5 +65,7 @@ class User < ActiveRecord::Base
     def to_param
         profile_name
     end
-
+    def friends_with?(other_user)
+        friends.include?(other_user)
+    end
 end

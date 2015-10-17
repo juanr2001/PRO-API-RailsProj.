@@ -12,4 +12,8 @@ class ApplicationController < ActionController::Base
         # devise_parameter_sanitizer.for(:account_update) << [:first_name, :last_name]
     end
 
+    def after_sign_in_path_for(resource)
+        stored_location_for(resource) || feed_url || super
+    end
+
 end

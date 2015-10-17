@@ -1,13 +1,12 @@
 class StatusesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :json
   # GET /statuses
   # GET /statuses.json
   def index
     #fix the bug, need to be changed to be current_user
     @statuses = Status.all
-
   end
   # GET /statuses/1
   # GET /statuses/1.json
@@ -29,8 +28,7 @@ class StatusesController < ApplicationController
     @status = current_user.statuses.new(status_params)
 
     respond_to do |format|
-      if @status.user == current_user
-        @status.save
+      if @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
@@ -43,11 +41,10 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1
   # PATCH/PUT /statuses/1.json
   def update
-    @status = current_user.statuses.find(params[ :id ])
+    # @status = current_user.statuses.find(params[ :id ])
 
     respond_to do |format|
-      if@status.user == current_user && params[:status]
-        @status.update(status_params)
+        if @status.update(status_params)
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
@@ -60,8 +57,8 @@ class StatusesController < ApplicationController
   # DELETE /statuses/1
   # DELETE /statuses/1.json
   def destroy
-    if @status.user == current_user
-      @status.destroy
+    #@status.user == current_user
+    if @status.destroy
       respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
       format.json { head :no_content }

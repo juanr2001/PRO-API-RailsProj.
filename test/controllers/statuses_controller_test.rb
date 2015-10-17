@@ -90,7 +90,7 @@ test "should redirect edit when not logged in" do
 
   test "should update status for current user when logged in" do
     sign_in users(:juan)
-    patch :update, id: @status, status: { content: @status.content, user_id: users(:jose).id }
+    put :update, id: @status, status: { content: @status.content, user_id: users(:jose).id }
     assert_redirected_to status_path(assigns(:status))
     assert_equal assigns(:status).user_id, users(:juan).id
   end
