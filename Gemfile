@@ -35,6 +35,9 @@ gem 'devise', '~> 3.5.2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
+gem 'state_machines'
+
 # gem "pg"
 # gem 'puma'
 # gem 'foreman'
@@ -43,6 +46,7 @@ gem 'devise', '~> 3.5.2'
 # gem 'capistrano-rails', group: :development
 group :test do
     gem 'shoulda', '~> 3.5.0'
+    gem 'factory_girl', '~> 4.0'
 end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

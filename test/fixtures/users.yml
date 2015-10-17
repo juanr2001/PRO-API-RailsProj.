@@ -4,6 +4,7 @@ juan:
     last_name: "Ordaz"
     email: "juan@univision.com"
     profile_name: "Juanchito"
+
     encrypted_password: "$2a$10$445EVdYV6DKaRiRMHi9Flu4sSrMFrk9YIgP0D9WLfHYIIgALTqTxK"
     # password: "password"
     # password_confirmation: "password"
