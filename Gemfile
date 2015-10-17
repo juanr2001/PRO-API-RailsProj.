@@ -36,7 +36,9 @@ gem 'devise', '~> 3.5.2'
 # gem 'unicorn'
 
 # http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
-gem 'state_machines'
+# gem 'state_machine'
+gem 'state_machines-activerecord'
+
 
 # gem "pg"
 # gem 'puma'

@@ -1,36 +1,30 @@
 Rails.application.routes.draw do
 
-    as :user do
-      get '/register', to: 'devise/registrations#new', as: :register
-      get '/login', to: 'devise/sessions#new', via: :get, as: :login
-      get '/logout', to: 'devise/sessions#destroy', via: :delete, as: :logout
+  as :user do
+    get '/register', to: 'devise/registrations#new',via: :get, as: :register
+    get '/login', to: 'devise/sessions#new', via: :get, as: :login
+    get '/logout', to: 'devise/sessions#destroy', via: :delete, as: :logout
+  end
+
+  devise_for :users, :skip => [:sessions]
+
+  as :user do
+    get '/login' => 'devise/sessions#new', as: :new_user_session
+    post '/login' => 'devise/sessions#create', as: :user_session
+    delete '/logout' => 'devise/sessions#destroy', as: :destroy_user_session
+  end
+
+  resources :user_friendships do
+    member do
+      put :accept
     end
+  end
 
+  resources :statuses
+  get 'feed', to: 'statuses#index', as: :feed
+  root to: 'statuses#index'
 
-    # devise_for :users, :controllers => {
-    # registrations: 'registrations' }#, path: "auth", path_names: {sign_in: 'login', sign_out: 'logout'}
-
-    devise_for :users, skip:[:sessions]
-
-    as :user do
-      get "/login" => "devise/sessions#new", as: :new_user_session
-      post "/login" => "devise/sessions#create", as: :user_session
-      delete "/logout" => "devise/sessions#destroy", as: :destroy_user_session
-
-    end
-
-    resources :user_friendships do
-      #since is an instance rather than applying to all users friendships
-      member do
-        put :accept
-      end
-    end
-
-    resources :statuses
-    # get 'feed', to: 'statuses#index', as: :feed
-    root to: 'statuses#index'
-
-    get '/:id', to: "profiles#show", as: 'profile'
+  get '/:id', to: 'profiles#show', as: 'profile'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
