@@ -38,6 +38,8 @@ gem 'devise', '~> 3.5.2'
 # http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
 # gem 'state_machine'
 gem 'state_machines-activerecord'
+# Decorators help extract view logic in to their own objects. This helps us to keep our views as clutter free as possible
+gem 'draper', '~> 2.1'
 
 
 # gem "pg"
