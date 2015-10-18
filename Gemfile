@@ -36,7 +36,14 @@ gem 'devise', '~> 3.5.2'
 # gem 'unicorn'
 
 # http://www.rubydoc.info/github/pluginaweek/state_machine/master/frames
+<<<<<<< Updated upstream
 gem 'state_machines'
+=======
+# gem 'state_machine'
+gem 'state_machines-activerecord'
+gem 'draper', '~> 2.1'
+
+>>>>>>> Stashed changes
 
 # gem "pg"
 # gem 'puma'
