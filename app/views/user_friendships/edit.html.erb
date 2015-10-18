@@ -2,18 +2,8 @@
     <h1>Viewing Friendship</h1>
 </div>
 
-<<<<<<< Updated upstream
-<% if @user_friendship.requested?%>
-    <h3>Do you really want to be friends with <%= @friend.first_name %>?</h3>
-<% end %>
-
-<% if @user_friendship.accepted? %>
-    <h3> You are friends with <%= @friend.first_name %></h3>
-<% end %>
-=======
 <!-- .sub_message method is found in app/decorators/user_friendships-->
 <h3><%= @user_friendship.sub_message %></h3>
->>>>>>> Stashed changes
 
 <div class = "form-actions">
     <% if @user_friendship.requested? %>
@@ -21,14 +11,6 @@
             <% submit_tag "Accept Friendship", class: 'btn btn-primary' %>
         <% end %>
     <% end %>
-<<<<<<< Updated upstream
-
-    <%= form_for @user_friendship, url: user_friendship_path(@user_friendship), method: :delete do | form | %>
-        <% submit_tag "Delete Friendship", class: 'btn btn-danger' %>
-    <% end %>
-
-</div>
-=======
 
     <% if @user_friendship.accepted? %>
         <%= form_for @user_friendship, url: user_friendship_path(@user_friendship), method: :delete do | form | %>
@@ -36,4 +18,3 @@
         <% end %>
     <% end %>
 </div>
->>>>>>> Stashed changes

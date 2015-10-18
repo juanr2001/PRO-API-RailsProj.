@@ -1,20 +1,17 @@
 class StatusesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :index]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :set_status, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :json
   # GET /statuses
   # GET /statuses.json
   def index
     #fix the bug, need to be changed to be current_user
     @statuses = Status.all
-<<<<<<< Updated upstream
 
-=======
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @statuses }
     end
->>>>>>> Stashed changes
   end
   # GET /statuses/1
   # GET /statuses/1.json
@@ -47,8 +44,7 @@ class StatusesController < ApplicationController
     @status = current_user.statuses.new(status_params)
 
     respond_to do |format|
-      if @status.user == current_user
-        @status.save
+      if @status.save
         format.html { redirect_to @status, notice: 'Status was successfully created.' }
         format.json { render :show, status: :created, location: @status }
       else
@@ -62,41 +58,29 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1.json
   def update
     @status = current_user.statuses.find(params[ :id ])
-<<<<<<< Updated upstream
-
-    respond_to do |format|
-      if@status.user == current_user && params[:status]
-        @status.update(status_params)
-=======
      if params[:status] && params[:status].has_key?(:user_id)
         params[:status].delete(:user_id)
      end
     respond_to do |format|
         if @status.update_attributes(status_params)
->>>>>>> Stashed changes
-        format.html { redirect_to @status, notice: 'Status was successfully updated.' }
-        format.json { render :show, status: :ok, location: @status }
-      else
-        format.html { render :edit }
-        format.json { render json: @status.errors, status: :unprocessable_entity }
-      end
+          format.html { redirect_to @status, notice: 'Status was successfully updated.' }
+          format.json { render :show, status: :ok, location: @status }
+        else
+          format.html { render :edit }
+          format.json { render json: @status.errors, status: :unprocessable_entity }
+        end
     end
   end
 
   # DELETE /statuses/1
   # DELETE /statuses/1.json
   def destroy
-<<<<<<< Updated upstream
-    if @status.user == current_user
-      @status.destroy
-=======
     # @status.user == current_user
     @status = Status.find(params[ :id ] )
     @status.destroy
->>>>>>> Stashed changes
-      respond_to do |format|
-      format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
-      format.json { head :no_content }
+    respond_to do |format|
+    format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
+    format.json { head :no_content }
     end
   end
 
