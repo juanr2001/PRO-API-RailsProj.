@@ -7,20 +7,38 @@ class StatusesController < ApplicationController
   def index
     #fix the bug, need to be changed to be current_user
     @statuses = Status.all
+<<<<<<< Updated upstream
 
+=======
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @statuses }
+    end
+>>>>>>> Stashed changes
   end
   # GET /statuses/1
   # GET /statuses/1.json
   def show
+    @status = Status.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @status }
+    end
   end
 
   # GET /statuses/new
   def new
     @status = Status.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @status }
+    end
   end
 
   # GET /statuses/1/edit
   def edit
+    @status = Status.find(params[:id])
   end
 
   # POST /statuses
@@ -44,10 +62,18 @@ class StatusesController < ApplicationController
   # PATCH/PUT /statuses/1.json
   def update
     @status = current_user.statuses.find(params[ :id ])
+<<<<<<< Updated upstream
 
     respond_to do |format|
       if@status.user == current_user && params[:status]
         @status.update(status_params)
+=======
+     if params[:status] && params[:status].has_key?(:user_id)
+        params[:status].delete(:user_id)
+     end
+    respond_to do |format|
+        if @status.update_attributes(status_params)
+>>>>>>> Stashed changes
         format.html { redirect_to @status, notice: 'Status was successfully updated.' }
         format.json { render :show, status: :ok, location: @status }
       else
@@ -60,14 +86,17 @@ class StatusesController < ApplicationController
   # DELETE /statuses/1
   # DELETE /statuses/1.json
   def destroy
+<<<<<<< Updated upstream
     if @status.user == current_user
       @status.destroy
+=======
+    # @status.user == current_user
+    @status = Status.find(params[ :id ] )
+    @status.destroy
+>>>>>>> Stashed changes
       respond_to do |format|
       format.html { redirect_to statuses_url, notice: 'Status was successfully destroyed.' }
       format.json { head :no_content }
-      end
-    else
-      redirect_to statuses_path
     end
   end
 
@@ -79,6 +108,6 @@ class StatusesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def status_params
-      params.require( :status ).permit( :content, :user_id )
+      params.require( :status ).permit( :content )
     end
 end
