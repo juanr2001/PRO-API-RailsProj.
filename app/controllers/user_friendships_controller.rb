@@ -55,8 +55,10 @@ class UserFriendshipsController < ApplicationController
         end
     end
 
+    #decorate method is found in app/decorators.user_friendship
+    #passing the decorate instatiates the user friendship decorator.
     def edit
-        @user_friendship = current_user.user_friendships.find( params[ :id ] )
+        @user_friendship = current_user.user_friendships.find( params[ :id ] ).decorate
         @friend = @user_friendship.friend
     end
 
